@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ElmishWPFx.Licences"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElmishWPFx"
+             mc:Ignorable="d" 
+             Padding="10"
+             Background="DarkGreen" d:DesignWidth="840" d:DesignHeight="700">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />               
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />              
+                <RowDefinition Height="*" />
+                <RowDefinition Height="500" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Licences" Foreground="White" FontWeight="Bold" FontSize="30" Margin="35,20,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Software design in all source files" Margin="35,0,0,0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="in the &quot;XElmish&quot; folder" Margin="35,35,0,0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label Grid.Column="0" Grid.Row="2" Content="File &quot;Converters.cs&quot;" Margin="35,0,0,0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label Grid.Column="0" Grid.Row="3" Content="File &quot;MainWindow.xaml.cs&quot;" Margin="35,0,0,0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="3" Content="File &quot;GoogleSheetsHelper.cs&quot;" Margin="35,0,0,0" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label Grid.Column="2" Grid.Row="3" Content="Remaining code" Margin="35,0,0,0" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left"/>
+            <TextBox Grid.Column="0" Grid.Row="4" x:Name="licencesTextBox0" Background="white" Height="320" TextAlignment="left" TextWrapping="Wrap" Width="200" FontSize="10"
+                     Text="{Binding licencesTextBox0}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" FontWeight="Normal" AcceptsReturn="True" Padding="10" >
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="licencesTextBox1" Background="white" Height="180" TextAlignment="left" TextWrapping="Wrap" Width="200" FontSize="10"
+                     Text="{Binding licencesTextBox1}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" FontWeight="Normal" AcceptsReturn="True" Padding="10">
+            </TextBox>
+            <TextBox Grid.Column="2" Grid.Row="4" x:Name="licencesTextBox2" Background="white" Height="100" TextAlignment="left" TextWrapping="Wrap" Width="200" FontSize="10"
+                     Text="{Binding licencesTextBox2}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" FontWeight="Normal" AcceptsReturn="True" Padding="10">
+            </TextBox>
+        </Grid>        
+    </StackPanel>
+</UserControl>

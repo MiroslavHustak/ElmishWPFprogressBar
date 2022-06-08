@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Graphicloads-Food-Drink-Teapot.ico" />
+    <Compile Include="Settings\Settings.fs" />
+    <Compile Include="MyTypes\DiscriminatedUnions.fs" />
+    <Compile Include="MyTypes\Other_Records.fs" />
+    <Compile Include="MyTypes\PatternBuilders.fs" />
+    <Compile Include="Auxiliaries\GoogleAPI.fs" />
+    <Compile Include="Auxiliaries\Errors.fs" />
+    <Compile Include="Auxiliaries\ROP_Functions.fs" />
+    <Compile Include="Auxiliaries\Helpers.fs" />
+    <Compile Include="MainLogic\MainLogicLeft.fs" />
+    <Compile Include="MainLogic\MainLogicRight.fs" />
+    <Compile Include="XElmish\ElmishSupport.fs" />
+    <Compile Include="XElmish\Settings.fs" />
+    <Compile Include="XElmish\Licences.fs" />
+    <Compile Include="XElmish\LeftCalc.fs" />
+    <Compile Include="XElmish\RightCalc.fs" />
+    <Compile Include="XElmish\MainWindowNonOpt.fs" />
+    <Compile Include="XElmish\MainWindowOpt.fs" />
+    <Compile Include="XElmish\Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elmish" Version="3.1.0" />
+    <PackageReference Include="Elmish.WPF" Version="4.0.0-beta-42" />
+    <PackageReference Include="FSharp.Collections.ParallelSeq" Version="1.2.0" />
+    <PackageReference Include="FSharp.Control.AsyncSeq" Version="3.2.1" />
+    <PackageReference Include="FSharp.Quotations.Evaluator" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Serilog" Version="2.11.0-dev-01377" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.2-dev-00890" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.2-mauipre.1.22054.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CheckingNetConn\CheckingNetConn.csproj" />
+    <ProjectReference Include="..\GoogleSheets\GoogleSheets.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="6.0.1" />
+  </ItemGroup>
+
+</Project>

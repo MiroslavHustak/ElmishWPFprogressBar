@@ -1,0 +1,70 @@
+﻿<Window x:Class="ElmishWPFx.MainWindowOpt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElmishWPFx"
+        xmlns:models="clr-namespace:ElmishWPFx.Models;assembly=ElmishWPFx.Models"
+        KeyDown="OnKeyDownHandler"
+        mc:Ignorable="d"
+        d:DataContext="{x:Static models:MainWindowOpt.designVm}"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Graphicloads-Food-Drink-Teapot.ico"  
+        Title="ElmishWPFcalculations" Height="850" Width="840" ResizeMode="CanMinimize">
+        <!--
+        ResizeMode="CanMinimize" zabranuje roztahovani/zuzovani okna, ale umoznuje sbaleni do listy
+        ResizeMode="NoResize" zabranuje roztahovani/zuzovani okna a neumoznuje sbaleni do listy (ale programatorsky to lze)
+        -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+            <local:BoolToVisibilityConverter x:Key="HiddenConverter" TrueValue="Visible" FalseValue="Hidden"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.InputBindings>       
+        <KeyBinding Key="F9" Command="{Binding ShowLeftCalcPage}"/>        
+        <KeyBinding Key="F10" Command="{Binding ShowRightCalcPage}"/>
+        <KeyBinding Key="F11" Command="{Binding ShowSettingsPage}"/>
+        <KeyBinding Key="F12" Command="{Binding ShowLicencesPage}"/>
+    </Window.InputBindings>
+    <DockPanel Background="White">
+        <!-- 
+        <TabControl DockPanel.Dock="Top" ItemsSource="{Binding Tabs}" Background="LightGray" FontWeight ="Bold" SelectedIndex="0" SelectionChanged="TabControl_SelectionChanged">
+        -->        
+        <TabControl DockPanel.Dock="Top" Background="White" FontWeight ="Bold" ItemsSource="{Binding Tabs}" SelectedIndex="0" SelectedValue="{Binding SelectedTabHeader, Mode=OneWayToSource}" SelectedValuePath="Header">
+             <TabControl.ItemTemplate>
+                <DataTemplate >
+                    <TextBlock Text="{Binding Header}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ToolBar ItemsSource="{Binding Toolbuttons}" ToolBarTray.IsLocked="True" Background="White" Loaded="ToolBar_Loaded">
+                        <ToolBar.ItemTemplate>
+                            <DataTemplate>
+                                <Button Background="White" Command="{Binding ButtonClick}" IsTabStop="False" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Button.Content>
+                                        <StackPanel Margin="4">
+                                            <Image Stretch="None" Source="{Binding ImageSource}"/>
+                                            <TextBlock Text="{Binding Text}" Foreground="{Binding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <Border BorderThickness="2.0" Margin="0 2 0 0" BorderBrush="LightGray" Visibility="{Binding MarkerVisible, Converter={StaticResource HiddenConverter}}"/>
+                                        </StackPanel>
+                                    </Button.Content>                                    
+                                </Button>
+                            </DataTemplate>
+                        </ToolBar.ItemTemplate>
+                    </ToolBar>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Background="Maroon">
+                <local:RightCalc DataContext="{Binding RightCalcPage}" Visibility="{Binding DataContext.RightCalcPageVisible, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource VisibilityConverter}}" />
+                <local:Licences DataContext="{Binding LicencesPage}" Visibility="{Binding DataContext.LicencesPageVisible, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource VisibilityConverter}}" />
+                <local:Settings DataContext="{Binding SettingsPage}" Visibility="{Binding DataContext.SettingsPageVisible, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource VisibilityConverter}}" />
+                <local:LeftCalc DataContext="{Binding LeftCalcPage}" Visibility="{Binding DataContext.LeftCalcPageVisible, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource VisibilityConverter}}" />
+                <!-- posledni v rade se zobrazi pri nacitani designu -->
+            </Grid>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
