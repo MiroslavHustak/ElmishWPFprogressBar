@@ -39,26 +39,13 @@ open System.Runtime.Serialization
 
             let initialString = String.Empty                //initial value of the string
             let listRange = [ 1 .. numberOfStrings ]
-            let rec loop list auxString stringToAdd =
+            let rec loop list acc stringToAdd =
                 match list with 
-                | []        -> auxString
-                | _ :: tail -> let finalString = (+) auxString stringToAdd
+                | []        -> acc
+                | _ :: tail -> let finalString = (+) acc stringToAdd
                                loop <| tail <| finalString <| stringToAdd
             loop <| listRange <| initialString <| stringToAdd  
-
-    module SimulatingLongRunningOperation = 
-
-        let longRunOper minValue maxValue =  
-
-            let listRange = [ minValue .. maxValue ]
-            let rec loop list   =
-                match list with 
-                | []        -> ()
-                | _ :: tail ->                                 
-                                //nejaky kod                                      
-                                loop <| tail 
-            loop <| listRange  
-        
+                        
     module Serialisation = 
 
          let serialize record = 
