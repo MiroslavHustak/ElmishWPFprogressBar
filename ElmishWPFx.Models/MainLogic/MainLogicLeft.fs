@@ -41,27 +41,31 @@ let private (+++) _ = (++)
 let private getDirsAndFiles() =
 
     let deserialize = deserializeMe()
-    let prefix = deserialize.prefix // jo, a uz jsem zjistil odborny termin: parameterless function
-    let strLength = deserialize.exampleString.Length //8
+   
     let path = deserialize.path //napr. $@"o:\Litoměřice 6. část\"   
     
     //TODO porovnej toto....
-    let subdirs = Directory.GetDirectories(path) 
+    let subdirs = 
+        let prefix = deserialize.prefix // jo, a uz jsem zjistil odborny termin: parameterless function
+        let strLength = deserialize.exampleString.Length //8
+        Directory.GetDirectories(path) 
                   |> Option.ofObj
                   |> optionToGenerics "adresářů" "Directory.GetDirectories()"
                   |> Array.filter(fun (item: string) -> item.Contains prefix && item.Replace(path, String.Empty).Length = strLength)    
     
     //TODO .... s timto, a over chovani funkci filter a choose v danem pripade
     let subdirs = 
-                  let condition (item: string) = item.Contains prefix && item.Replace(path, String.Empty).Length = strLength
-                  Directory.GetDirectories(path) 
-                  |> Option.ofObj
-                  |> optionToGenerics "adresářů" "Directory.GetDirectories()"
-                  |> Array.Parallel.choose(fun item ->
-                                                     match item with
-                                                     | item when condition item -> Some(item)
-                                                     | _                        -> None
-                                          ) 
+        let prefix = deserialize.prefix // jo, a uz jsem zjistil odborny termin: parameterless function
+        let strLength = deserialize.exampleString.Length //8
+        let condition (item: string) = item.Contains prefix && item.Replace(path, String.Empty).Length = strLength
+        Directory.GetDirectories(path) 
+        |> Option.ofObj
+        |> optionToGenerics "adresářů" "Directory.GetDirectories()"
+        |> Array.Parallel.choose(fun item ->
+                                            match item with
+                                            | item when condition item -> Some(item)
+                                            | _                        -> None
+                                ) 
     
     let dirNoFullPath = subdirs
                         |> Array.Parallel.map(fun item -> item.Replace(path, String.Empty))   
@@ -95,14 +99,9 @@ let private parsingValues() =
                   (low, high), String.Empty  
 
 let private getFullInterval() = 
-    
-    let deserialize = deserializeMe()
-    let (low, high), _ = parsingValues()
-    let prefix = deserialize.prefix 
-    let strLength = deserialize.exampleString.Length //8
-    let suffixLength = [ strLength; - prefix.Length ] |> List.fold (+) 0 //5
-   
+
     //srovnej toto....
+    (*
     let fullInt =
         [|
           for i in low .. high -> sprintf "%s%s%s"   
@@ -110,9 +109,16 @@ let private getFullInterval() =
                                   <| MyString.GetString((suffixLength - String.length (i |> string)), "0") 
                                   <| string i 
         |]                         
-    
+    *)
+
     //... s timto
     let fullInt = 
+        let deserialize = deserializeMe()
+        let (low, high), _ = parsingValues()
+        let prefix = deserialize.prefix 
+        let strLength = deserialize.exampleString.Length //8
+        let suffixLength = [ strLength; - prefix.Length ] |> List.fold (+) 0 //5
+
         [| low .. high |]   //kupodivu Array.mapi stejne rychle jako for, s Array.Parallel.mapi je to rychlejsi, nez for
         |> Array.Parallel.mapi
               (fun i item -> sprintf "%s%s%s"                            
@@ -187,14 +193,16 @@ let textBoxString1() =
 let textBoxString2() = 
    
     let perform x =  
-        let deserialize = deserializeMe()
-        let processStart = String.Empty //$"Začátek procesu: {DateTime.Now.ToString(str)}\n" //String.Empty //              
-        let partialFn1 = writeIntoGoogleSheet <| getFullInterval <| getFullNumberOfFiles  //tady tasks zpusobilo zpomaleni          
-        let partialFn2() = partialFn1 <| deserialize.jsonFileName1 <| deserialize.id <| deserialize.sheetName <| deserialize.columnStart <| deserialize.rowStart 
-        partialFn2()
-                      
+        let processStart = String.Empty //$"Začátek procesu: {DateTime.Now.ToString(str)}\n" //String.Empty // 
         let processEnd = String.Empty //$"Konec procesu: {DateTime.Now.ToString(str)} \n" //String.Empty //
-        (++)
+        
+        let partialFn1 = writeIntoGoogleSheet <| getFullInterval <| getFullNumberOfFiles  //tady tasks zpusobilo zpomaleni          
+        let partialFn2() = 
+            let deserialize = deserializeMe()
+            partialFn1 <| deserialize.jsonFileName1 <| deserialize.id <| deserialize.sheetName <| deserialize.columnStart <| deserialize.rowStart 
+        partialFn2()                     
+        
+        (++)        
         <| processStart
         <| processEnd
         <| "Údaje byly úspěšně zapsány. Ještě před kontrolou skenů je zkopíruj do příslušného sloupce v barevné tabulce."

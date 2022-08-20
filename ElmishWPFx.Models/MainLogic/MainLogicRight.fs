@@ -73,9 +73,10 @@ let textBoxString3 low high path reportProgress =
     let prefix = deserialize.prefix
     let id = deserialize.id
     let sheetName6 = deserialize.sheetName6
-    
-    let str = "HH:mm:ss.fff"    
-    let processStart = String.Empty //$"  Začátek procesu: {DateTime.Now.ToString(str)}" //String.Empty //
+        
+    let processStart = 
+        let str = "HH:mm:ss.fff"   
+        String.Empty //$"  Začátek procesu: {DateTime.Now.ToString(str)}" //String.Empty //
 
     // first submain function
     let myNumbers() = 
