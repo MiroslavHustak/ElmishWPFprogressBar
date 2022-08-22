@@ -330,31 +330,31 @@ module Settings =
     // A command in Elmish is a function that can trigger events into the dispatch loop. // A command is essentially a function that takes a dispatch function as input and returns unit:
     let update (msg: Msg) (m: Model) : Model * Cmd<Msg> = 
                        
-            let str = sprintf "Hodnota \"%s\" byla změněna (pokud nebyla zadaná prázdná hodnota nebo chybná číselná hodnota)."
-            let strCbx = sprintf "Hodnota \"%s\" byla změněna."
+        let str = sprintf "Hodnota \"%s\" byla změněna (pokud nebyla zadaná prázdná hodnota nebo chybná číselná hodnota)."
+        let strCbx = sprintf "Hodnota \"%s\" byla změněna."
 
-            match msg with          
-            | CancelButton2Event   -> initialModel "jsonBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
-            // | SaveValuesEvent   -> { updateSettings m with InfoTextBoxForeground = m.InfoTextBoxForeground }, Cmd.none   
-            | TextBoxClickedEvent  -> m, Cmd.none 
-            | DefaultButton3Event  -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none                                        
-            | PrefixTextBox prefix -> { m with PrefixTextBoxText = prefix; InfoTextBoxText = str m.PrefixLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
-            | ExampleStringTextBox exampleString       -> { m with ExampleStringTextBoxText = exampleString; InfoTextBoxText = str m.ExampleStringLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none           
-            | PathTextBox path     -> { m with PathTextBoxText = path; InfoTextBoxText = str m.PathLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | NumOfScansLengthTextBox numOfScansLength -> { m with NumOfScansLengthTextBoxText = string numOfScansLength; InfoTextBoxText = str m.NumOfScansLengthLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        match msg with          
+        | CancelButton2Event   -> initialModel "jsonBackUp.xml" "Načteny hodnoty ze záložního souboru (hodnoty uložené před spuštěním programu). \n" |> updateSettings, Cmd.none                                   
+        // | SaveValuesEvent   -> { updateSettings m with InfoTextBoxForeground = m.InfoTextBoxForeground }, Cmd.none   
+        | TextBoxClickedEvent  -> m, Cmd.none 
+        | DefaultButton3Event  -> defaultValues "Načteny defaultní hodnoty." |> updateSettings, Cmd.none                                        
+        | PrefixTextBox prefix -> { m with PrefixTextBoxText = prefix; InfoTextBoxText = str m.PrefixLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none
+        | ExampleStringTextBox exampleString       -> { m with ExampleStringTextBoxText = exampleString; InfoTextBoxText = str m.ExampleStringLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none           
+        | PathTextBox path     -> { m with PathTextBoxText = path; InfoTextBoxText = str m.PathLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | NumOfScansLengthTextBox numOfScansLength -> { m with NumOfScansLengthTextBoxText = string numOfScansLength; InfoTextBoxText = str m.NumOfScansLengthLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
                               
-            | FirstRowIsHeadersCheckBox firstRowIsHeaders -> { m with FirstRowIsHeadersCheckBoxIsChecked = firstRowIsHeaders; InfoTextBoxText = strCbx m.FirstRowIsHeadersCheckBox; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | JsonFileName1TextBox jsonFileName1 -> { m with JsonFileName1TextBoxText = jsonFileName1; InfoTextBoxText = str m.JsonFileName1Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | JsonFileName2TextBox jsonFileName2 -> { m with JsonFileName2TextBoxText = jsonFileName2;InfoTextBoxText = str m.JsonFileName2Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | IdTextBox id -> { m with IdTextBoxText = id; InfoTextBoxText = str m.IdLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | FirstRowIsHeadersCheckBox firstRowIsHeaders -> { m with FirstRowIsHeadersCheckBoxIsChecked = firstRowIsHeaders; InfoTextBoxText = strCbx m.FirstRowIsHeadersCheckBox; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | JsonFileName1TextBox jsonFileName1 -> { m with JsonFileName1TextBoxText = jsonFileName1; InfoTextBoxText = str m.JsonFileName1Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | JsonFileName2TextBox jsonFileName2 -> { m with JsonFileName2TextBoxText = jsonFileName2;InfoTextBoxText = str m.JsonFileName2Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | IdTextBox id -> { m with IdTextBoxText = id; InfoTextBoxText = str m.IdLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
                     
-            | SheetNameTextBox sheetName       -> { m with SheetNameTextBoxText = sheetName; InfoTextBoxText = str m.SheetNameLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | SheetName6TextBox sheetName6     -> { m with SheetName6TextBoxText = sheetName6; InfoTextBoxText =  str m.SheetName6Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | ColumnStart1TextBox columnStart1 -> { m with ColumnStart1TextBoxText = string columnStart1; InfoTextBoxText = str m.ColumnStart1Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | ColumnStart2TextBox columnStart2 -> { m with ColumnStart2TextBoxText = string columnStart2; InfoTextBoxText = str m.ColumnStart2Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | ColumnStartTextBox columnStart   -> { m with ColumnStartTextBoxText = string columnStart; InfoTextBoxText = str m.ColumnStartLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
-            | RowStartTextBox rowStart         -> { m with RowStartTextBoxText = string rowStart; InfoTextBoxText = str m.RowStartLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none   
-            | InfoTextBoxForeground            -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
+        | SheetNameTextBox sheetName       -> { m with SheetNameTextBoxText = sheetName; InfoTextBoxText = str m.SheetNameLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | SheetName6TextBox sheetName6     -> { m with SheetName6TextBoxText = sheetName6; InfoTextBoxText =  str m.SheetName6Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | ColumnStart1TextBox columnStart1 -> { m with ColumnStart1TextBoxText = string columnStart1; InfoTextBoxText = str m.ColumnStart1Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | ColumnStart2TextBox columnStart2 -> { m with ColumnStart2TextBoxText = string columnStart2; InfoTextBoxText = str m.ColumnStart2Label; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | ColumnStartTextBox columnStart   -> { m with ColumnStartTextBoxText = string columnStart; InfoTextBoxText = str m.ColumnStartLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none    
+        | RowStartTextBox rowStart         -> { m with RowStartTextBoxText = string rowStart; InfoTextBoxText = str m.RowStartLabel; InfoTextBoxForeground = Brushes.Red } |> updateSettings, Cmd.none   
+        | InfoTextBoxForeground            -> { m with InfoTextBoxForeground = Brushes.Black }, Cmd.none //tohle je barva, na kterou se to po pohybu mysi nebo po zvednuti klavesy zmeni
              
     let cond x y =             
         match String.IsNullOrWhiteSpace(string x) with
