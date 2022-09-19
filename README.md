@@ -2,7 +2,7 @@ The file ElmishWPFxUpdated[DD-MM-YYYY]. zip contains a very simple real-life app
 
 Background:
 
-There is an example with Progress Bar Determinate on GitHub (https://github.com/BentTranberg/ElmishXmas) - DemoAsync and DemoAsync.Core projects with a single window. But a real-life application will probably look more like this: https://github.com/BentTranberg/ExploreElmishWpf, where a window is used with tabs. I ran into difficulties while implementing progress bars into my ExploreElmishWpf-based app. The problems were dealt with here: https://stackoverflow.com/questions/70208381/updating-progressbar-value-in-fsxaml-and-elmishwpf and here: #1, and I greatly appreciate the help of Bent Tranberg's.
+There is an example with Progress Bar Determinate on GitHub (https://github.com/BentTranberg/ElmishXmas) - DemoAsync and DemoAsync.Core projects with a single window. But a real-life application will probably look more like this: https://github.com/BentTranberg/ExploreElmishWpf, where a window is used with tabs. I ran into difficulties while implementing progress bars into my ExploreElmishWpf-based app. The problems were dealt with here: https://stackoverflow.com/questions/70208381/updating-progressbar-value-in-fsxaml-and-elmishwpf, and I greatly appreciate the help of Bent Tranberg's.
 
 Progress Bars:
 
