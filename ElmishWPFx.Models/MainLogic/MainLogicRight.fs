@@ -264,13 +264,12 @@ let textBoxString4 x y =
     
     let x = Parsing.parseMe x
     let y = Parsing.parseMe y
-    let result = 
-        match x <= 0 || y <= 0 with
-        | true  -> 0
-        | false -> let z = [ x; -y ] |> List.fold (+) 0 //jen tak pro vyzkouseni si monoidu
-                   z
-    result
-    
+  
+    match x <= 0 || y <= 0 with
+    | true  -> 0
+    | false -> let z = [ x; -y ] |> List.fold (+) 0 //jen tak pro vyzkouseni si monoidu
+               z
+       
 
 (*
 Directory

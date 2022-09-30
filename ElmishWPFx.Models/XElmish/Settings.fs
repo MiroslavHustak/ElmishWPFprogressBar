@@ -185,10 +185,10 @@ module Settings =
            
            //pouze pro malo pravdepodobny pripad, kdyby nekdo v kodu nebo primo do json.xml/jsonBackup.xml zadal hodnoty jineho typu, nez integer
            let condInt x y = 
-               let result = Parsing.parseMeOption (string x)
-               match result with
-               | Some value -> value   
-               | None       -> y
+               Parsing.parseMeOption (string x)
+               |> function
+                   | Some value -> value   
+                   | None       -> y
             
            let myCopyOfSettings() =  //to je, co se ulozi
                {
@@ -361,12 +361,10 @@ module Settings =
         | true  -> y     
         | false -> x
     
-    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo     
-        let result =            
-            match Parsing.parseMeOption (string x) with
-            | Some value -> string value   
-            | None       -> string y
-        result 
+    let condInt y x =   //musim x a y prehodit, nebot hodnota pres piping je dosazena az nakonec vpravo
+        match Parsing.parseMeOption (string x) with
+        | Some value -> string value   
+        | None       -> string y       
 
     let condition x y = (cond x y) |> condInt y 
 
