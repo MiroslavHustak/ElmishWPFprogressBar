@@ -11,15 +11,14 @@ open System.Diagnostics
 let private restartApp message f = 
     
     let title = "Závažná chyba"
-    let buttons = MessageBoxButton.YesNo                     
-    let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning)
-    
-    match result with
-    | MessageBoxResult.Yes -> let currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName
-                              Process.Start(currentExecutablePath) |> ignore
-                              Environment.Exit(1)  
-                              f
-    | _                    -> f
+
+    MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning)    
+    |> function
+       | MessageBoxResult.Yes -> let currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName
+                                 Process.Start(currentExecutablePath) |> ignore
+                                 Environment.Exit(1)  
+                                 f
+       | _                    -> f
 
 //************************** main error functions ******************
 
@@ -53,12 +52,11 @@ let error4 str  =
     let message = sprintf "Vyskytla se chyba (%s). Klikni na \"OK\" pro ukončení této aplikace a sežeň programátora, anebo oprav problém sám."
                   <| str
     let title = "Závažná chyba"
-    let buttons = MessageBoxButton.OK                     
-    let result = MessageBox.Show(message, title, buttons, MessageBoxImage.Warning)   
-    
-    match result with
-    | MessageBoxResult.OK -> Environment.Exit(1)                     
-    | _                   -> ()
+
+    MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning)   
+    |> function  
+       | MessageBoxResult.OK -> Environment.Exit(1)                     
+       | _                   -> ()
 
 let error5 ex  = 
 
