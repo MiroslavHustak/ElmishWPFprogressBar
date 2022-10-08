@@ -34,7 +34,7 @@ module MainWindowOpt =
     let private header1 = "Calculations" 
     let private header2 = "Settings" 
 
-    let newGuid () = Guid.NewGuid()    
+    let newGuid<'T> = Guid.NewGuid()    //let newGuid () = Guid.NewGuid()   TODO k cemu to je???
 
     type Toolbutton =
         {
@@ -80,16 +80,16 @@ module MainWindowOpt =
                 <| x.SettingsPage.IsSome
                 <| x.LicencesPage.IsSome
 
-    let tbNone = newGuid ()
-    let tbCalc = newGuid ()
-    let tbLeftCalc = newGuid ()
-    let tbRightCalc = newGuid ()
-    let tbSettings = newGuid ()
-    let tbLicences = newGuid ()  
+    let tbNone = newGuid 
+    let tbCalc = newGuid 
+    let tbLeftCalc = newGuid 
+    let tbRightCalc = newGuid 
+    let tbSettings = newGuid 
+    let tbLicences = newGuid   
 
     let tabs =
         let tab header toolButtons =
-            { Id = newGuid (); Header = header; Toolbuttons = toolButtons }
+            { Id = newGuid ; Header = header; Toolbuttons = toolButtons }
         let toolbutton id text isMarkable =
             { Id = id; Text = text; IsMarkable = isMarkable }
         let firstTab =

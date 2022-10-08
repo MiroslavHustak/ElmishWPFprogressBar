@@ -24,7 +24,7 @@ let workToDoRight reportProgress =
        {    
            [ 1..100 ]    
            |> List.mapi(fun i item ->  //simulating long running operation
-                                    [1..1_000_000] |> List.reduce (*) |> ignore 
+                                    [ 1..1_000_000 ] |> List.reduce (*) |> ignore 
                                     reportProgress i 
                        ) |> ignore    
            return 42
@@ -255,6 +255,7 @@ let textBoxString3 low high path reportProgress =
               |> optionToDirectoryInfo "dInfodat: DirectoryInfo"  
 
           let! _ = dInfodatResult.Exists, background
+
           let returnFunction = result()
 
           return returnFunction

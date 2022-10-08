@@ -49,9 +49,9 @@ let private getDirsAndFiles() =
         let prefix = deserialize.prefix // jo, a uz jsem zjistil odborny termin: parameterless function
         let strLength = deserialize.exampleString.Length //8
         Directory.GetDirectories(path) 
-                  |> Option.ofObj
-                  |> optionToGenerics "adresářů" "Directory.GetDirectories()"
-                  |> Array.filter(fun (item: string) -> item.Contains prefix && item.Replace(path, String.Empty).Length = strLength)    
+        |> Option.ofObj
+        |> optionToGenerics "adresářů" "Directory.GetDirectories()"
+        |> Array.filter(fun (item: string) -> item.Contains prefix && item.Replace(path, String.Empty).Length = strLength)    
     
     //TODO .... s timto, a over chovani funkci filter a choose v danem pripade
     let subdirs = 
