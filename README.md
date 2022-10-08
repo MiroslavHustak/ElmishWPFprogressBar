@@ -1,4 +1,4 @@
-The file ElmishWPFxUpdated[DD-MM-YYYY]. zip contains a very simple real-life application (a complete VS solution) with Progress Bar Determinate and Progress Bar Indeterminate. If you are new to Elmish.WPF, please check out information about Elmish.WPF first (https://github.com/elmish/Elmish.WPF).
+If you are new to Elmish.WPF, please check out information about Elmish.WPF first (https://github.com/elmish/Elmish.WPF).
 
 Background:
 
