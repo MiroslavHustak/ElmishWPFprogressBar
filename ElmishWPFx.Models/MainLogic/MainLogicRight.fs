@@ -234,13 +234,13 @@ let textBoxString3 low high path reportProgress =
           let background = sprintf "Chyba - neexistující cesta k adresáři anebo chybné znaky v cestě" 
           let! _ =             
             let left = 
-                    System.IO.Path.GetInvalidPathChars() //The array returned from this method is not guaranteed to contain the complete set of characters that are invalid in file and directory names. 
-                    |> Option.ofObj 
-                    |> optionToGenerics "nepovolených znaků" "Path.GetInvalidPathChars()"     
-                    |> Array.map(fun item -> path.Contains(string item)) //dostaneme pole hodnot bool
-                    |> Array.contains true //tj. obsahuje nepovoleny znak 
-                    //podminka nutna ....  (obsahuje ACSII znaky, ktere muj regex nezachyti) 
-                    //...nikoliv vsak dostacujici (GetInvalidPathChars() nezachyti +, <> a vetsinu dalsich znaku z regexu)          
+                System.IO.Path.GetInvalidPathChars() //The array returned from this method is not guaranteed to contain the complete set of characters that are invalid in file and directory names. 
+                |> Option.ofObj 
+                |> optionToGenerics "nepovolených znaků" "Path.GetInvalidPathChars()"     
+                |> Array.map(fun item -> path.Contains(string item)) //dostaneme pole hodnot bool
+                |> Array.contains true //tj. obsahuje nepovoleny znak 
+                //podminka nutna ....  (obsahuje ACSII znaky, ktere muj regex nezachyti) 
+                //...nikoliv vsak dostacujici (GetInvalidPathChars() nezachyti +, <> a vetsinu dalsich znaku z regexu)          
             let right = Regex.IsMatch(path, """^[a-z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$""")  //tento regex pattern nezachyti +
             let result = (not left) && right && (not (path.Contains "+"))
             result, background
