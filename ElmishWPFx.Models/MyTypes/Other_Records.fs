@@ -1,4 +1,4 @@
-﻿namespace Other_Records
+﻿module Other_Records
 
 open System
 

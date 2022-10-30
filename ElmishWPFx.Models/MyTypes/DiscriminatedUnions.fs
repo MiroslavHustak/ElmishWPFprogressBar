@@ -1,4 +1,4 @@
-﻿namespace DiscriminatedUnions
+﻿module DiscriminatedUnions
 
 type Result<'TSuccess,'TFailure> =
 

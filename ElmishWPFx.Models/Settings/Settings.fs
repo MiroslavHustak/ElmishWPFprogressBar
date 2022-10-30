@@ -1,4 +1,4 @@
-﻿namespace Settings
+﻿module Settings
     
 [<Struct>]  //vhodne pro 16 bytes => 4096 characters
 type Common_Settings = 
