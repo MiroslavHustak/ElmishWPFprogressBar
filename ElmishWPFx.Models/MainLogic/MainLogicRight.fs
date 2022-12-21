@@ -62,7 +62,7 @@ let textBoxString3 low high path reportProgress =
 
     let deserialize =              
         let perform x = deserialize "json.xml" 
-        tryWith perform (fun x -> ()) (fun ex -> failwith)  |> deconstructor3 Common_Settings.Default         
+        tryWith perform (fun x -> ()) (fun ex -> ())  |> deconstructor3 Common_Settings.Default         
 
     let firstRowIsHeaders = deserialize.firstRowIsHeaders  
     let numOfScansLength = deserialize.numOfScansLength
@@ -223,9 +223,9 @@ let textBoxString3 low high path reportProgress =
          
     //prozeneme third submain pres try-with block...
     let result() =
-        let result = tryWith textBoxString3 (fun x -> ()) (fun ex -> failwith)  //fun x je pro finally - viz IrfanView Opener
+        let result = tryWith textBoxString3 (fun x -> ()) (fun ex -> ())  //fun x je pro finally - viz IrfanView Opener
         //pro nazornost jeste jednou (at tam jde videt partial application):
-        let result = (textBoxString3, (fun x -> ()), (fun ex -> failwith)) |||> tryWith 
+        let result = (textBoxString3, (fun x -> ()), (fun ex -> ())) |||> tryWith 
         result |> deconstructor2     
     
     //.. a zajistime nejakou tu validaci na uvod, at neni treba odchytavat moc vyjimek
@@ -249,7 +249,7 @@ let textBoxString3 low high path reportProgress =
               //Priste tady pouzij System.IO.Directory.Exists, tady je zbytecne vytvarena instance tridy (objekt), bo nema dalsi vyuziti, viz poznamka nize
               let dInfodat: DirectoryInfo = new DirectoryInfo(path) 
               let dInfodatOption x = dInfodat |> Option.ofObj      
-              let ropResults = tryWith dInfodatOption (fun x -> ()) (fun ex -> failwith)  
+              let ropResults = tryWith dInfodatOption (fun x -> ()) (fun ex -> ())  
               ropResults
               |> deconstructor3 None 
               |> optionToDirectoryInfo "dInfodat: DirectoryInfo"  

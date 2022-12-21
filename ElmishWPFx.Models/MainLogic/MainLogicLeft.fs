@@ -31,7 +31,7 @@ let private id = @"1G15Mn_A9EjIXiS0UODz7WVsmx6BoSJGYA4tA-MtoEC4" // je to soucas
 let private deserializeMe() = 
 
     let perform x = deserialize "json.xml" 
-    tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor3 Common_Settings.Default 
+    tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 Common_Settings.Default 
                
 let private str = "HH:mm:ss.fff" 
 
@@ -83,7 +83,7 @@ let private parsingValues() =
 
     let results =
         let perform x = fst (getDirsAndFiles())
-        tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor1
+        tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor1
 
     match results with 
     | [||], ex   -> (0, 0), ex
@@ -177,7 +177,7 @@ let textBoxString1() =
         let processStart = String.Empty //$"Začátek procesu: {DateTime.Now.ToString(str)}\n" //String.Empty //
         Log.Information($"Začátek procesu: {DateTime.Now.ToString(str)}\n")
 
-        let results = tryWith listOfLines (fun x -> ()) (fun ex -> failwith) |> deconstructor1         
+        let results = tryWith listOfLines (fun x -> ()) (fun ex -> ()) |> deconstructor1         
         let processEnd = String.Empty //$"Konec procesu: {DateTime.Now.ToString(str)}\n" //String.Empty //
         
         match snd results with
@@ -207,6 +207,6 @@ let textBoxString2() =
         <| processEnd
         <| "Údaje byly úspěšně zapsány. Ještě před kontrolou skenů je zkopíruj do příslušného sloupce v barevné tabulce."
        
-    let result = tryWith perform (fun x -> ()) (fun ex -> failwith) |> deconstructor2  
+    let result = tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor2  
        
     textBoxString result  
