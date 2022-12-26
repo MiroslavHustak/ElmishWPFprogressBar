@@ -58,7 +58,7 @@ module MainWindowOpt =
         | ShowLicences
         | LeftCalcMsg of LeftCalc.Msg
         | RightCalcMsg of RightCalc.Msg
-        | SettingsMsg of ElmishWPFx.Models.Settings.Msg
+        | SettingsMsg of XElmishSettings.Msg
         | LicencesMsg of Licences.Msg
         | SetSelectedTabHeader of tabHeader:string
 
@@ -68,7 +68,7 @@ module MainWindowOpt =
             MarkedButton: Guid
             LeftCalcPage: LeftCalc.Model option
             RightCalcPage: RightCalc.Model option
-            SettingsPage: ElmishWPFx.Models.Settings.Model option
+            SettingsPage: XElmishSettings.Model option
             LicencesPage: Licences.Model option
             SelectedTabHeader: string
         }
@@ -151,7 +151,7 @@ module MainWindowOpt =
             | Some _ -> m, Cmd.none      
         | ShowSettings->
             match m.SettingsPage with
-            | None -> { m with SettingsPage = fst (ElmishWPFx.Models.Settings.init()) |> Some }, Cmd.none
+            | None -> { m with SettingsPage = fst (XElmishSettings.init()) |> Some }, Cmd.none
             | Some _ -> m, Cmd.none
         | ShowLicences ->
             match m.LicencesPage with
@@ -174,7 +174,7 @@ module MainWindowOpt =
             match m.SettingsPage with
             | None -> m, Cmd.none
             | Some m' ->
-                let m'', cmd'' = ElmishWPFx.Models.Settings.update msg' m'
+                let m'', cmd'' = XElmishSettings.update msg' m'
                 { m with SettingsPage = Some m'' }, Cmd.map SettingsMsg cmd''   
         | LicencesMsg msg' ->
             match m.LicencesPage with
@@ -215,7 +215,7 @@ module MainWindowOpt =
             |> Binding.mapModel (fun m -> m.RightCalcPage)
             |> Binding.mapMsg RightCalcMsg
             "SettingsPage"
-            |> Binding.SubModel.opt ElmishWPFx.Models.Settings.bindings //Binding.SubModel.required for non-optional bindings
+            |> Binding.SubModel.opt XElmishSettings.bindings //Binding.SubModel.required for non-optional bindings
             |> Binding.mapModel (fun m -> m.SettingsPage)
             |> Binding.mapMsg SettingsMsg
             "LicencesPage"

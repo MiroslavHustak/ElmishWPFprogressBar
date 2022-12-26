@@ -1,4 +1,4 @@
-﻿module Helpers
+﻿namespace ElmishWPFx.Models
 
 open System
 open System.IO;
@@ -8,6 +8,8 @@ open Errors
 open Settings
 open ROP_Functions
 open System.Runtime.Serialization
+
+module Helpers =
 
     module private TryParserInt =
 

@@ -4,7 +4,7 @@ open Microsoft.FSharp.Core
 open System.Windows
 open System.Windows.Controls.Primitives
 
-module Settings =
+module XElmishSettings =
     
     open Elmish
     open Elmish.WPF

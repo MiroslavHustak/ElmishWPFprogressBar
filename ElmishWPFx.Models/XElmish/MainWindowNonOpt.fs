@@ -56,7 +56,7 @@ module MainWindowNonOpt =
         | ShowLicences
         | LeftCalcMsg of LeftCalc.Msg
         | RightCalcMsg of RightCalc.Msg
-        | SettingsMsg of ElmishWPFx.Models.Settings.Msg
+        | SettingsMsg of XElmishSettings.Msg
         | LicencesMsg of Licences.Msg
         | SetSelectedTabHeader of tabHeader:string
 
@@ -66,7 +66,7 @@ module MainWindowNonOpt =
             MarkedButton: Guid
             LeftCalcPage: LeftCalc.Model 
             RightCalcPage: RightCalc.Model 
-            SettingsPage: ElmishWPFx.Models.Settings.Model 
+            SettingsPage: XElmishSettings.Model 
             LicencesPage: Licences.Model 
             SelectedTabHeader: string
         }
@@ -96,7 +96,7 @@ module MainWindowNonOpt =
     
     let leftCalcPage, (leftCalcPageCmd: Cmd<LeftCalc.Msg>) = LeftCalc.init () 
     let rightCalcPage, (rightCalcPageCmd: Cmd<RightCalc.Msg>) = RightCalc.init ()
-    let settingsPage, (settingsPageCmd: Cmd<ElmishWPFx.Models.Settings.Msg>) = ElmishWPFx.Models.Settings.init ()
+    let settingsPage, (settingsPageCmd: Cmd<XElmishSettings.Msg>) = XElmishSettings.init ()
     let licencesPage, (licencesPageCmd: Cmd<Licences.Msg>) = Licences.init () 
     
     let startModel =
@@ -138,7 +138,7 @@ module MainWindowNonOpt =
 
         | ShowLeftCalc  -> { m with LeftCalcPage = fst (LeftCalc.init());  }, Cmd.none          
         | ShowRightCalc -> { m with RightCalcPage = fst (RightCalc.init()) }, Cmd.none          
-        | ShowSettings  -> { m with SettingsPage = fst (ElmishWPFx.Models.Settings.init()) }, Cmd.none 
+        | ShowSettings  -> { m with SettingsPage = fst (XElmishSettings.init()) }, Cmd.none 
         | ShowLicences  -> { m with LicencesPage = fst (Licences.init ()) }, Cmd.none 
          
         | LeftCalcMsg msg' ->
@@ -148,7 +148,7 @@ module MainWindowNonOpt =
                              let m', cmd' = RightCalc.update msg' m.RightCalcPage
                              { m with RightCalcPage = m' }, Cmd.map RightCalcMsg cmd'        
         | SettingsMsg msg' ->
-                             let m', cmd' = ElmishWPFx.Models.Settings.update msg' m.SettingsPage
+                             let m', cmd' = XElmishSettings.update msg' m.SettingsPage
                              { m with SettingsPage = m' }, Cmd.map SettingsMsg cmd'
         | LicencesMsg msg' ->
                              let m', cmd' = Licences.update msg' m.LicencesPage
@@ -186,7 +186,7 @@ module MainWindowNonOpt =
             |> Binding.mapModel (fun m -> m.RightCalcPage)
             |> Binding.mapMsg RightCalcMsg
             "SettingsPage"
-            |> Binding.SubModel.required ElmishWPFx.Models.Settings.bindings 
+            |> Binding.SubModel.required XElmishSettings.bindings 
             |> Binding.mapModel (fun m -> m.SettingsPage)
             |> Binding.mapMsg SettingsMsg
             "LicencesPage"

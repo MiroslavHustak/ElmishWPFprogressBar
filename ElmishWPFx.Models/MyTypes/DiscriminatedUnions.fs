@@ -1,15 +1,17 @@
-﻿module DiscriminatedUnions
+﻿namespace ElmishWPFx.Models
 
-type Result<'TSuccess,'TFailure> =
+module DiscriminatedUnions =
 
-   | Success of 'TSuccess
-   | Failure of 'TFailure
+    type Result<'TSuccess,'TFailure> =
 
-[<Struct>]
-type TaskResults =    
+       | Success of 'TSuccess
+       | Failure of 'TFailure
 
-   | TupleStringString of outputValues: string[] * string[]
-   | MyArrayInt of myArray: int[]
+    [<Struct>]
+    type TaskResults =    
+
+       | TupleStringString of outputValues: string list * string list
+       | MyListInt of myList: int list
 
 
 
