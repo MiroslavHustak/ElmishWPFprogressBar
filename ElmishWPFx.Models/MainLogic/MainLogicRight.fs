@@ -1,18 +1,18 @@
 ﻿namespace ElmishWPFx.Models
 
 open System
-   open System.IO
-   open System.Text.RegularExpressions
-   open FSharp.Quotations.Evaluator.QuotationEvaluationExtensions
+open System.IO
+open System.Text.RegularExpressions
+open FSharp.Quotations.Evaluator.QuotationEvaluationExtensions
 
-   open Errors
-   open Helpers
-   open Settings
-   open GoogleAPI
-   open ROP_Functions
-   open PatternBuilders
-   open DiscriminatedUnions
-   open Helpers.Deserialisation
+open Errors
+open Helpers
+open Settings
+open GoogleAPI
+open ROP_Functions
+open PatternBuilders
+open DiscriminatedUnions
+open Helpers.Deserialisation
 
 module MainLogicRight = 
 
@@ -125,15 +125,64 @@ module MainLogicRight =
                                     Directory.EnumerateDirectories(item, p) 
                                     |> Option.ofObj
                                     |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()"
-                                    |> Array.Parallel.map(fun item -> 
-                                                                    let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
+                                    |> Array.Parallel.map (fun item -> 
+                                                                     let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
                                                                               |> Option.ofObj   
-                                                                              |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
-                                                                    arr.Length
-                                                         ) 
+                                                                               |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
+                                                                     arr.Length
+                                                          ) 
                                 arr                    
                     ) |> List.ofArray      
-       
+
+        let myList1() =  //redundant function - just testing an option without a mutable counter
+            let myArray = 
+                Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
+                |> Option.ofObj
+                |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()" //sort je quli sitove pripojenemu zarizeni 
+            [| 0 .. myArray.Length - 1 |]
+            |> Array.map
+                    (fun i -> myArray 
+                              |> Array.collect
+                                      (fun item ->                                              
+                                                 reportProgress (i * 5)  
+                                                 let arr = 
+                                                     let p = [ prefix; "*" ] |> List.fold (+) String.Empty 
+                                                     Directory.EnumerateDirectories(item, p) 
+                                                     |> Option.ofObj
+                                                     |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()"
+                                                     |> Array.Parallel.map (fun item -> 
+                                                                                      let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
+                                                                                                |> Option.ofObj   
+                                                                                                |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
+                                                                                      arr.Length
+                                                                            ) 
+                                                 arr                    
+                                      )  
+                    ) |> Array.head |> List.ofArray
+
+        let myList2() =  //redundant function - just testing an option without a mutable counter
+            let myArray = 
+                Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
+                |> Option.ofObj
+                |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()" //sort je quli sitove pripojenemu zarizeni 
+            (myArray, [| 0 .. myArray.Length - 1 |])
+            ||> Array.map2
+                    (fun item1 item2 ->                            
+                                        reportProgress (item2 * 5)  
+                                        let arr = 
+                                            let p = [ prefix; "*" ] |> List.fold (+) String.Empty 
+                                            Directory.EnumerateDirectories(item1, p) 
+                                            |> Option.ofObj
+                                            |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()"
+                                            |> Array.Parallel.map (fun item -> 
+                                                                             let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
+                                                                                       |> Option.ofObj   
+                                                                                       |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
+                                                                             arr.Length
+                                                                  ) 
+                                        arr       
+                    ) |> Array.concat |> List.ofArray        
+                           
         //third submain function comprising myNumbers() and myArray()
         let textBoxString3 x =         
                
