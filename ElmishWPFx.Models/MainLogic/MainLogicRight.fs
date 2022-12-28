@@ -167,7 +167,7 @@ module MainLogicRight =
                 |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()" //sort je quli sitove pripojenemu zarizeni 
             (myArray, [| 0 .. myArray.Length - 1 |])
             ||> Array.map2
-                    (fun item1 item2 ->                            
+                     (fun item1 item2 ->                            
                                         reportProgress (item2 * 5)  
                                         let arr = 
                                             let p = [ prefix; "*" ] |> List.fold (+) String.Empty 
@@ -181,14 +181,14 @@ module MainLogicRight =
                                                                              arr.Length
                                                                   ) 
                                         arr       
-                    ) |> Array.concat |> List.ofArray        
+                     ) |> Array.concat |> List.ofArray        
                            
         //third submain function comprising myNumbers() and myArray()
         let textBoxString3 x =         
                
             let du: TaskResults list = myTasks 
-                                    <| async { return TupleStringString (myNumbers()) } 
-                                    <| async { return MyListInt (myList()) }
+                                       <| async { return TupleStringString (myNumbers()) } 
+                                       <| async { return MyListInt (myList()) }
        
             let (numOfScans, folderNum) = 
                 //primy dynamic cast :?> TaskResults muze vest k chybe behem runtime
@@ -221,41 +221,41 @@ module MainLogicRight =
                      let msg =         
                          (folderNum, numOfScans, myList)
                          |||> List.map3
-                                 (fun item1 item2 item3 ->
-                                                         let cond = (&&) (String.length item1 = len) (item1.Contains prefix)   
-                                                         let str = "Chybná složka"
-                                                         let item1 = 
-                                                             match cond with
-                                                             | true  -> sprintf "%s%s"
-                                                                        <| item1
-                                                                        <| MyString.GetString((String.length str) - len - 1, "  ")
-                                                             | false -> str 
+                                  (fun item1 item2 item3 ->
+                                                          let cond = (&&) (String.length item1 = len) (item1.Contains prefix)   
+                                                          let str = "Chybná složka"
+                                                          let item1 = 
+                                                              match cond with
+                                                              | true  -> sprintf "%s%s"
+                                                                         <| item1
+                                                                         <| MyString.GetString((String.length str) - len - 1, "  ")
+                                                              | false -> str 
 
-                                                         let result =    
-                                                             match Parsing.parseMeOption item2 with
-                                                             | Some value -> 
-                                                                           match value - item3 with
-                                                                           | 0 -> let s = "OK" //%15s
-                                                                                  let expr = <@ (sprintf "%s%13s%16s%15s%5s%5s") @> //TODO je mozna dalsi generalizace ? ponechat quotations : pouze sprintf    
-                                                                                  s, expr                                           
-                                                                           | _ -> let s = "Počet skenů je rozdílný" //%36s
-                                                                                  let expr = <@ (sprintf "%s%13s%16s%36s%5s%5s") @>  
-                                                                                  s, expr 
-                                                             | None       -> 
-                                                                           let s = " Chybně zvolený sloupec Google" //%36s
-                                                                           let expr = <@ (sprintf "%s%13s%16s%36s%5s%5s") @>  
-                                                                           s, expr                                                            
+                                                          let result =    
+                                                              match Parsing.parseMeOption item2 with
+                                                              | Some value -> 
+                                                                            match value - item3 with
+                                                                            | 0 -> let s = "OK" //%15s
+                                                                                   let expr = <@ (sprintf "%s%13s%16s%15s%5s%5s") @> //TODO je mozna dalsi generalizace ? ponechat quotations : pouze sprintf    
+                                                                                   s, expr                                           
+                                                                            | _ -> let s = "Počet skenů je rozdílný" //%36s
+                                                                                   let expr = <@ (sprintf "%s%13s%16s%36s%5s%5s") @>  
+                                                                                   s, expr 
+                                                              | None       -> 
+                                                                            let s = " Chybně zvolený sloupec Google" //%36s
+                                                                            let expr = <@ (sprintf "%s%13s%16s%36s%5s%5s") @>  
+                                                                            s, expr                                                            
                                                      
-                                                         let mySprintf = (snd result).Compile()
+                                                          let mySprintf = (snd result).Compile()
 
-                                                         mySprintf                                                    
-                                                         <| item1 
-                                                         <| (stringChoice numOfScansLength item2) + item2 
-                                                         <| (stringChoice numOfScansLength (string item3)) + (string item3) 
-                                                         <| fst result 
+                                                          mySprintf                                                    
+                                                          <| item1 
+                                                          <| (stringChoice numOfScansLength item2) + item2 
+                                                          <| (stringChoice numOfScansLength (string item3)) + (string item3) 
+                                                          <| fst result 
                                                          <| processStart 
-                                                         <| processEnd + "\n"                                                 
-                                 ) 
+                                                          <| processEnd + "\n"                                                 
+                                  ) 
                      let str = sprintf "%s%25s%15s" 
                                <| "Složka" 
                                <| "Google"
