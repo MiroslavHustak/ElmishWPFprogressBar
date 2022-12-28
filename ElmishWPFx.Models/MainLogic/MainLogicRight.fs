@@ -157,8 +157,8 @@ module MainLogicRight =
                                                                                       arr.Length
                                                                             ) 
                                                  arr                    
-                                      )  
-                    ) |> Array.head |> List.ofArray
+                                      )  //tohle da list listu zaplneny stejnymi daty
+                    ) |> Array.head |> List.ofArray 
 
         let myList2() =  //redundant function - just testing an option without a mutable counter
             let myArray = 
