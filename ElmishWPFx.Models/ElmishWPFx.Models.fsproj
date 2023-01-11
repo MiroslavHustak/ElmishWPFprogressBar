@@ -8,6 +8,7 @@
   <ItemGroup>
     <Resource Include="Resources\Graphicloads-Food-Drink-Teapot.ico" />
     <Compile Include="Settings\Settings.fs" />
+    <Compile Include="MyTypes\Strings.fs" />
     <Compile Include="MyTypes\DiscriminatedUnions.fs" />
     <Compile Include="MyTypes\Other_Records.fs" />
     <Compile Include="MyTypes\PatternBuilders.fs" />

@@ -290,10 +290,10 @@ module XElmishSettings =
         //SaveValuesEvent   // v tomto pripade paramToTextBoxChanged by pak robilo to same, jako "TextBoxChanged" |> Binding.cmd SaveValuesEvent   
     
     //*********************** cmdParam ********************************** v teto app pouzivana cast
-    let castAs<'T when 'T : null> (o:obj) = 
+    let castAs<'T when 'T: null> (o: obj) = 
         match o with
         | :? 'T as res -> res
-        | _            -> null       
+        | _            -> null      
     
     let paramTextBoxClickedEvent (p: obj) =    
         
