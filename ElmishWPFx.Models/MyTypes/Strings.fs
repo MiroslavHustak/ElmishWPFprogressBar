@@ -2,14 +2,13 @@
 
 open System
 
-let private myOption (s: string) (fn: string) = 
+let private myOption s = 
     s 
     |> Option.ofObj 
     |> function 
-        | Some value -> value
-        | None       -> fn //some action
+        | Some value -> string value
+        | None       -> String.Empty
 
-type StringNonN (s: string) = member this.StringNonN = myOption s      
+let (|StringNonN|) s = myOption s 
 
-let (|StringNonN|) s = myOption s
-
+//let private myString (StringNonN s) = s //to be implemented in the relevant module
