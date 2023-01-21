@@ -64,7 +64,7 @@ module MainLogicRight =
 
         let deserialize =              
             let perform x = deserialize "json.xml" 
-            tryWith perform (fun x -> ()) (fun ex -> ())  |> deconstructor3 Common_Settings.Default         
+            tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 Common_Settings.Default         
 
         let firstRowIsHeaders = deserialize.firstRowIsHeaders  
         let numOfScansLength = deserialize.numOfScansLength
