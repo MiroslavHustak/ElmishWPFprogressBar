@@ -238,7 +238,7 @@ module XElmishSettings =
               try 
                  serialize <| myCopyOfSettings()
                  initialModel "json.xml" |> ignore
-                 {myCopyOfModel() with InfoTextBoxForeground = m.InfoTextBoxForeground; InfoTextBoxText = m.InfoTextBoxText}                
+                 { myCopyOfModel() with InfoTextBoxForeground = m.InfoTextBoxForeground; InfoTextBoxText = m.InfoTextBoxText }                
                 finally
                  () 
            with
