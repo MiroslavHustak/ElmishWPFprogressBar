@@ -11,3 +11,9 @@ Check out RightCalc.fs, MainWindowOpt/NonOpt.fs in the XElmish folder, MainLogic
 TestButtonLeftEvent in LeftCalc.fs will give you no more significant information on Progress Bar Determinate than ElmishXmas, so no special need to go there.
 
 I am neither a GUI nor front-end expert, so if you are looking for an inspiration in Elmish.WPF related to some awesome GUI, you have to look elsewhere.
+
+
+Disclaimer:
+
+This F# app was sucessfully used in production. However, it serves as a learning app for the author of the code as well. Therefore, the code may contain some ostensibly "redundant" or "strange-looking" code. 
+The operation of this desktop app was under my supervision, therefore exceptions and validations were coded accordingly. 
