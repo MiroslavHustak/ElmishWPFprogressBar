@@ -33,7 +33,7 @@ module MainLogicRight =
            }
 
     //***************************** auxiliary function definitions ***********************************
-    let private stringChoice x y = MyString.GetString((x - String.length (string y)), "0")
+    let private stringChoice x y = MyString.getString((x - String.length (string y)), "0")
 
     let private (++) a b c = a + b + c
     let private (&&&&) a b c d e  = a && b && c && d && e 
@@ -194,16 +194,16 @@ module MainLogicRight =
                 //primy dynamic cast :?> TaskResults muze vest k chybe behem runtime
                 du |> List.item 0 |> whatIs             
                 |> function 
-                   | TupleStringString(numOfScans, folderNum) -> numOfScans, folderNum                                                    
-                   | _                                        -> error4 "error4 - TupleStringString"
-                                                                 List.empty, List.empty         
+                    | TupleStringString(numOfScans, folderNum) -> numOfScans, folderNum                                                    
+                    | _                                        -> error4 "error4 - TupleStringString"
+                                                                  List.empty, List.empty         
    
             let myList = 
                 du |> List.item 1 |> whatIs  
                 |> function 
-                   | MyListInt value -> value                                           
-                   | _               -> error4 "error4 - MyListInt"
-                                        List.empty 
+                    | MyListInt value -> value                                           
+                    | _               -> error4 "error4 - MyListInt"
+                                         List.empty 
 
             let processEnd = String.Empty //$"  Konec procesu: {DateTime.Now.ToString(str)}" //String.Empty //
         
@@ -228,7 +228,7 @@ module MainLogicRight =
                                                               match cond with
                                                               | true  -> sprintf "%s%s"
                                                                          <| item1
-                                                                         <| MyString.GetString((String.length str) - len - 1, "  ")
+                                                                         <| MyString.getString((String.length str) - len - 1, "  ")
                                                               | false -> str 
 
                                                           let result =    

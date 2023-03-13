@@ -37,7 +37,8 @@ module Helpers =
     module MyString = 
 
         //priklad pouziti: GetString(8, "0")//tuple a nazev velkym kvuli DLL pro C#
-        let GetString (numberOfStrings: int, stringToAdd: string): string =   
+        [<CompiledName "GetString">]
+        let getString (numberOfStrings: int, stringToAdd: string): string =   
 
             let initialString = String.Empty                //initial value of the string
             let listRange = [ 1 .. numberOfStrings ]

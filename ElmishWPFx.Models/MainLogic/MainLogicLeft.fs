@@ -111,7 +111,7 @@ module MainLogicLeft =
             |> Array.Parallel.mapi
                   (fun i item -> sprintf "%s%s%s"                            
                                  <| prefix
-                                 <| MyString.GetString((suffixLength - String.length ((i + low) |> string)), "0") 
+                                 <| MyString.getString((suffixLength - String.length ((i + low) |> string)), "0") 
                                  <| string (i + low)                                                                                                       
                   ) 
         fullInt
