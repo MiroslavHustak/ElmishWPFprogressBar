@@ -1,5 +1,8 @@
 ﻿namespace ElmishWPFx.Models
 
+open System.Threading
+open System.Threading.Tasks
+
 module LeftCalc =
 
     open System
@@ -42,6 +45,7 @@ module LeftCalc =
 
     //**********************************************************************************************************************************
     // FOR TESTING PURPOSES ONLY 
+    (*
     let private workToDoLeft dispatch = 
        async
            {
@@ -49,7 +53,33 @@ module LeftCalc =
                    do! Async.Sleep 20  //simulating long running operation
                    dispatch (UpdateStatusLeft i) 
                dispatch WorkIsCompleteLeft 
-            } 
+            }   
+    *)
+     // FOR TESTING PURPOSES ONLY 
+    let private hardWorkToDo reportProgress =     
+        
+        let limit = 1000000
+       
+        [ 0 .. 100 ]
+        |> List.iter (fun item ->                            
+                                //Thread.Sleep(20) //simulation of some hard work
+                                reportProgress (item)  
+                                [ 1..limit ] |> List.fold (*) 1 |> ignore //simulation of some hard work  
+                                //[ 1..limit ] |> List.reduce (*) |> ignore //simulation of some hard work
+                     )    
+
+    // FOR TESTING PURPOSES ONLY                  
+    let private workToDoLeft dispatch =       
+        async
+            {
+                let reportProgress progressValue = dispatch (UpdateStatusLeft progressValue)                
+                let! hardWork = Async.StartChild (async { return hardWorkToDo reportProgress }) 
+                let! result = hardWork     
+                do! Async.Sleep 1000
+
+                dispatch WorkIsCompleteLeft
+            }                           
+            
     
     //**********************************************************************************************************************************
 

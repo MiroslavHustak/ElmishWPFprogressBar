@@ -37,7 +37,7 @@ module MainLogicRight =
 
     let private (++) a b c = a + b + c
     let private (&&&&) a b c d e  = a && b && c && d && e 
-    let inline (+=) a b = a := !a + b
+    //let inline (+=) a b = a := !a + b
 
     let private myTasks task1 task2 =           
                                       [ 
@@ -111,6 +111,7 @@ module MainLogicRight =
                    result |> List.item 0, result |> List.item 1 
     
         // second submain function
+        (*
         let myList() =  
             let i = ref 0
             Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
@@ -118,7 +119,7 @@ module MainLogicRight =
             |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()" //sort je quli sitove pripojenemu zarizeni          
             |> Array.collect
                     (fun item ->
-                                i += 1
+                                i += 1 //mutable counter
                                 reportProgress (!i * 5)  
                                 let arr = 
                                     let p = [ prefix; "*" ] |> List.fold (+) String.Empty //i na string to funguje :-)
@@ -133,7 +134,7 @@ module MainLogicRight =
                                                           ) 
                                 arr                    
                     ) |> List.ofArray      
-
+        *) 
         let myList1() =  //redundant function - just testing an option without a mutable counter
             let myArray = 
                 Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
@@ -160,7 +161,7 @@ module MainLogicRight =
                                       )  //tohle da list listu zaplneny stejnymi daty
                     ) |> Array.head |> List.ofArray 
 
-        let myList2() =  //redundant function - just testing an option without a mutable counter
+        let myList2() =  
             let myArray = 
                 Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
                 |> Option.ofObj
@@ -188,7 +189,7 @@ module MainLogicRight =
                
             let du: TaskResults list = myTasks 
                                        <| async { return TupleStringString (myNumbers()) } 
-                                       <| async { return MyListInt (myList()) }
+                                       <| async { return MyListInt (myList2()) }
        
             let (numOfScans, folderNum) = 
                 //primy dynamic cast :?> TaskResults muze vest k chybe behem runtime
@@ -253,7 +254,7 @@ module MainLogicRight =
                                                           <| (stringChoice numOfScansLength item2) + item2 
                                                           <| (stringChoice numOfScansLength (string item3)) + (string item3) 
                                                           <| fst result 
-                                                         <| processStart 
+                                                          <| processStart 
                                                           <| processEnd + "\n"                                                 
                                   ) 
                      let str = sprintf "%s%25s%15s" 

@@ -110,7 +110,7 @@ module RightCalc =
                                                                   let result4 = textBoxString4 m.LowLimit m.HighLimit  
                                                                   //let! hardWork = Async.StartChild (workToDoRight reportProgress) //test case
                                                                   let! hardWork = Async.StartChild (async { return textBoxString3 m.LowLimit m.HighLimit m.PathToSynology reportProgress }) //real-life case
-                                                                  //do! Async.Sleep 1000 // Can do some async work here too while waiting for hardWork to finish.
+                                                                  do! Async.Sleep 1000 // Can do some async work here too while waiting for hardWork to finish.
                                                                   let! result3 = hardWork 
                                                                   let result = 
                                                                       match result4 >= 0 with

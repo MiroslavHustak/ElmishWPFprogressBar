@@ -242,7 +242,7 @@ module XElmishSettings =
                 finally
                  () 
            with
-           | _ as ex -> {myCopyOfModel() with InfoTextBoxForeground = Brushes.Red; InfoTextBoxText = strEx ex} 
+           | _ as ex -> { myCopyOfModel() with InfoTextBoxForeground = Brushes.Red; InfoTextBoxText = strEx ex } 
        
     let init(): Model * Cmd<'a> = initialModel "json.xml" "Hodnoty načteny. V případě prázdné kolonky je vždy dosazena defaultní hodnota.", Cmd.none 
         
