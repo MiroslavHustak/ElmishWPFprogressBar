@@ -92,7 +92,7 @@ module MainLogicLeft =
         | _          -> 
                       let deserialize = deserializeMe()
                       let prefix = deserialize.prefix   
-                      let x = fst results |> List.item 0 
+                      let x = fst results |> List.head 
                       let y = fst results |> List.item ((fst results |> List.length) - 1) 
                       let low  = Parsing.parseMe <| x.Replace(prefix, String.Empty)  
                       let high = Parsing.parseMe <| y.Replace(prefix, String.Empty)

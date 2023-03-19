@@ -112,7 +112,7 @@ module MainWindowOpt =
             RightCalcPage = None               
             SettingsPage = None
             LicencesPage = None
-            SelectedTabHeader = (tabs |> List.item 0).Header
+            SelectedTabHeader = (tabs |> List.head).Header
         }
 
     let init () = startModel, Cmd.ofMsg ShowLeftCalc

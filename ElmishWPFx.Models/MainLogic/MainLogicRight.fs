@@ -108,7 +108,7 @@ module MainLogicRight =
             | _ -> let result = myTasks  
                                 <| async { return numOfScans() |> List.ofArray } 
                                 <| async { return folderNum () |> List.ofArray }                   
-                   result |> List.item 0, result |> List.item 1 
+                   result |> List.head, result |> List.last 
     
         // second submain function
         (*
@@ -193,14 +193,14 @@ module MainLogicRight =
        
             let (numOfScans, folderNum) = 
                 //primy dynamic cast :?> TaskResults muze vest k chybe behem runtime
-                du |> List.item 0 |> whatIs             
+                du |> List.head |> whatIs             
                 |> function 
                     | TupleStringString(numOfScans, folderNum) -> numOfScans, folderNum                                                    
                     | _                                        -> error4 "error4 - TupleStringString"
                                                                   List.empty, List.empty         
    
             let myList = 
-                du |> List.item 1 |> whatIs  
+                du |> List.last |> whatIs  
                 |> function 
                     | MyListInt value -> value                                           
                     | _               -> error4 "error4 - MyListInt"

@@ -107,7 +107,7 @@ module MainWindowNonOpt =
             RightCalcPage = rightCalcPage               
             SettingsPage = settingsPage
             LicencesPage = licencesPage
-            SelectedTabHeader = (tabs |> List.item 0).Header
+            SelectedTabHeader = (tabs |> List.head).Header
         }
 
     let init () : Model * Cmd<Msg> = startModel, Cmd.map LeftCalcMsg leftCalcPageCmd
