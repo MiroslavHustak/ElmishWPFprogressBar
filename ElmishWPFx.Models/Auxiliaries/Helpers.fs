@@ -46,8 +46,8 @@ module Helpers =
                 match list with 
                 | []        -> acc
                 | _ :: tail -> let finalString = (+) acc stringToAdd
-                               loop <| tail <| finalString <| stringToAdd
-            loop <| listRange <| initialString <| stringToAdd  
+                               loop tail finalString stringToAdd //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
+            loop listRange initialString stringToAdd  //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
                         
     module Serialisation = 
 
