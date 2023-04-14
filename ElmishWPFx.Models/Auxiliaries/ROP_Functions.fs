@@ -47,7 +47,8 @@ module ROP_Functions =
     let optionToDirectoryInfo str (x: DirectoryInfo option) = 
         match x with 
         | Some value -> value
-        | None       -> error4 str //ukonci program
+        | None       -> 
+                        error4 str //ukonci program
                         new DirectoryInfo(String.Empty) //whatever of DirectoryInfo type
                                       
                     

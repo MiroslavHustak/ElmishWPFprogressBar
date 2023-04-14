@@ -45,7 +45,8 @@ module Helpers =
             let rec loop list acc stringToAdd =
                 match list with 
                 | []        -> acc
-                | _ :: tail -> let finalString = (+) acc stringToAdd
+                | _ :: tail -> 
+                               let finalString = (+) acc stringToAdd
                                loop tail finalString stringToAdd //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
             loop listRange initialString stringToAdd  //Tail-recursive function calls that have their parameters passed by the pipe operator are not optimized as loops #6984
                         
@@ -53,13 +54,16 @@ module Helpers =
 
          let serialize record = 
             
-             let filepath = Path.GetFullPath("json.xml") 
-                            |> Option.ofObj 
-                            |> optionToGenerics "čtení cesty k souboru json.xml" "Path.GetFullPath()"
+             let filepath = 
+                Path.GetFullPath("json.xml") 
+                |> Option.ofObj 
+                |> optionToGenerics "čtení cesty k souboru json.xml" "Path.GetFullPath()"
 
-             let xmlSerializer = new DataContractSerializer(typedefof<string>)          
-                                 |> Option.ofObj 
-                                 |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
+             let xmlSerializer = 
+                new DataContractSerializer(typedefof<string>)          
+                |> Option.ofObj 
+                |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
+             
              use stream = File.Create(filepath)   
              xmlSerializer.WriteObject(stream, JsonConvert.SerializeObject(record))            
 
@@ -67,25 +71,34 @@ module Helpers =
               
        let deserialize xmlFile = 
            
-           let filepath = Path.GetFullPath(xmlFile) 
-                          |> Option.ofObj 
-                          |> optionToGenerics (sprintf "čtení cesty k souboru souboru %s" xmlFile) "Path.GetFullPath()"
+           let filepath = 
+               Path.GetFullPath(xmlFile) 
+               |> Option.ofObj 
+               |> optionToGenerics (sprintf "čtení cesty k souboru souboru %s" xmlFile) "Path.GetFullPath()"
           
            let jsonString() = 
 
-               let xmlSerializer = new DataContractSerializer(typedefof<string>) 
-                                   |> Option.ofObj 
-                                   |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
-               let fileStream = File.ReadAllBytes(filepath)
-                                |> Option.ofObj 
-                                |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "File.ReadAllBytes()"
+               let xmlSerializer = 
+                   new DataContractSerializer(typedefof<string>) 
+                   |> Option.ofObj 
+                   |> optionToGenerics "při tvorbě nové instance" "DataContractSerializer()"
+
+               let fileStream = 
+                   File.ReadAllBytes(filepath)
+                   |> Option.ofObj 
+                   |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "File.ReadAllBytes()"
+
                use memoryStream = new MemoryStream(fileStream) 
-               let resultObj = xmlSerializer.ReadObject(memoryStream)  
-                               |> Option.ofObj 
-                               |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "xmlSerializer.ReadObject()"      
-               let resultString = unbox resultObj  
-                                  |> Option.ofObj 
-                                  |> optionToGenerics "downcasting" "(unbox resultObj)"      
+
+               let resultObj =
+                   xmlSerializer.ReadObject(memoryStream)  
+                   |> Option.ofObj 
+                   |> optionToGenerics (sprintf "čtení dat ze souboru %s" xmlFile) "xmlSerializer.ReadObject()"     
+                               
+               let resultString = 
+                   unbox resultObj  
+                   |> Option.ofObj 
+                   |> optionToGenerics "downcasting" "(unbox resultObj)"      
                let jsonString = JsonConvert.DeserializeObject<Common_Settings>(resultString) 
                jsonString
            
@@ -100,13 +113,15 @@ module Helpers =
         let copyFiles source destination =
             try
                 try  
-                    let sourceFilepath = Path.GetFullPath(source) 
-                                         |> Option.ofObj 
-                                         |> optionToGenerics (sprintf "čtení cesty k souboru %s" source)  "Path.GetFullPath()"
+                    let sourceFilepath = 
+                        Path.GetFullPath(source) 
+                        |> Option.ofObj 
+                        |> optionToGenerics (sprintf "čtení cesty k souboru %s" source)  "Path.GetFullPath()"
 
-                    let destinFilepath = Path.GetFullPath(destination) 
-                                         |> Option.ofObj 
-                                         |> optionToGenerics (sprintf "čtení cesty k souboru %s" destination)  "Path.GetFullPath()"
+                    let destinFilepath = 
+                        Path.GetFullPath(destination) 
+                        |> Option.ofObj 
+                        |> optionToGenerics (sprintf "čtení cesty k souboru %s" destination)  "Path.GetFullPath()"
                     
                     let fInfodat: FileInfo = new FileInfo(sourceFilepath)  
                     match fInfodat.Exists with 

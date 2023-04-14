@@ -40,21 +40,22 @@ module MainLogicRight =
     //let inline (+=) a b = a := !a + b
 
     let private myTasks task1 task2 =           
-                                      [ 
-                                        task1 
-                                        task2 
-                                      ] 
-                                      |> Async.Parallel //viz strana 433 Isaac Abraham
-                                      |> Async.Catch
-                                      |> Async.RunSynchronously
-                                      |> function
-                                         | Choice1Of2 result    -> result |> List.ofArray
-                                         | Choice2Of2 (ex: exn) -> error0 ex.Message       
+        [ 
+            task1 
+            task2 
+        ] 
+        |> Async.Parallel //viz strana 433 Isaac Abraham
+        |> Async.Catch
+        |> Async.RunSynchronously
+        |> function
+            | Choice1Of2 result    -> result |> List.ofArray
+            | Choice2Of2 (ex: exn) -> error0 ex.Message       
                                                                
     let private whatIs(x: obj) =
         match x with
         | :? TaskResults as du -> du  //aby nedoslo k nerizene chybe behem runtime
-        | _                    -> error4 "error 4 - x :?> TaskResults"                              
+        | _                    -> 
+                                  error4 "error 4 - x :?> TaskResults"                              
                                   x :?> TaskResults
 
     //*******************************************************************************
@@ -128,7 +129,7 @@ module MainLogicRight =
                                     |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()"
                                     |> Array.Parallel.map (fun item -> 
                                                                      let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
-                                                                              |> Option.ofObj   
+                                                                               |> Option.ofObj   
                                                                                |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
                                                                      arr.Length
                                                           ) 
@@ -176,7 +177,8 @@ module MainLogicRight =
                                             |> Option.ofObj
                                             |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()"
                                             |> Array.Parallel.map (fun item -> 
-                                                                             let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
+                                                                             let arr =
+                                                                                       Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
                                                                                        |> Option.ofObj   
                                                                                        |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
                                                                              arr.Length
@@ -196,14 +198,16 @@ module MainLogicRight =
                 du |> List.head |> whatIs             
                 |> function 
                     | TupleStringString(numOfScans, folderNum) -> numOfScans, folderNum                                                    
-                    | _                                        -> error4 "error4 - TupleStringString"
+                    | _                                        -> 
+                                                                  error4 "error4 - TupleStringString"
                                                                   List.empty, List.empty         
    
             let myList = 
                 du |> List.last |> whatIs  
                 |> function 
                     | MyListInt value -> value                                           
-                    | _               -> error4 "error4 - MyListInt"
+                    | _               -> 
+                                         error4 "error4 - MyListInt"
                                          List.empty 
 
             let processEnd = String.Empty //$"  Konec procesu: {DateTime.Now.ToString(str)}" //String.Empty //
@@ -227,7 +231,8 @@ module MainLogicRight =
                                                           let str = "Chybná složka"
                                                           let item1 = 
                                                               match cond with
-                                                              | true  -> sprintf "%s%s"
+                                                              | true  -> 
+                                                                         sprintf "%s%s"
                                                                          <| item1
                                                                          <| MyString.getString((String.length str) - len - 1, "  ")
                                                               | false -> str 
@@ -236,10 +241,12 @@ module MainLogicRight =
                                                               match Parsing.parseMeOption item2 with
                                                               | Some value -> 
                                                                             match value - item3 with
-                                                                            | 0 -> let s = "OK" //%15s
+                                                                            | 0 -> 
+                                                                                   let s = "OK" //%15s
                                                                                    let expr = <@ (sprintf "%s%13s%16s%15s%5s%5s") @> //TODO je mozna dalsi generalizace ? ponechat quotations : pouze sprintf    
                                                                                    s, expr                                           
-                                                                            | _ -> let s = "Počet skenů je rozdílný" //%36s
+                                                                            | _ -> 
+                                                                                   let s = "Počet skenů je rozdílný" //%36s
                                                                                    let expr = <@ (sprintf "%s%13s%16s%36s%5s%5s") @>  
                                                                                    s, expr 
                                                               | None       -> 

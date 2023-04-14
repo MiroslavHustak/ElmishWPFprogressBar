@@ -124,7 +124,7 @@ module MainWindowOpt =
         match msg with
         | ButtonClick id ->
             match findButton id m with
-            | None -> m, Cmd.none
+            | None               -> m, Cmd.none
             | Some clickedButton ->
                                     let m = 
                                         match clickedButton.IsMarkable with
@@ -195,14 +195,14 @@ module MainWindowOpt =
                 [
                     "Id" |> Binding.oneWay (fun (_, t) -> t.Id)
                     "Header" |> Binding.oneWay (fun (_, t) -> t.Header)
-                    "Toolbuttons" |> Binding.subModelSeq((fun (_, t) -> t.Toolbuttons), (fun t -> t), fun () ->
+                    "Toolbuttons" |> Binding.subModelSeq ((fun (_, t) -> t.Toolbuttons), (fun t -> t), fun () ->
                         [
                             "Id" |> Binding.oneWay (fun (_, t) -> t.Id)
                             "Text" |> Binding.oneWay (fun (_, t) -> t.Text)
                             // "ImageSource" |> Binding.oneWay (fun (_, t) -> t.ImageSource)
                             "Foreground" |> Binding.oneWay (fun (_, t) -> Brushes.Green)
                             "ButtonClick" |> Binding.cmd (fun (_, (t: Toolbutton)) -> ButtonClick t.Id)
-                            "MarkerVisible" |> Binding.oneWay (fun ((m, tab), tb) -> tb.Id = m.MarkedButton && m.somePageIsVisible)
+                            "MarkerVisible" |> Binding.oneWay (fun ((m, tab), tb)  -> tb.Id = m.MarkedButton && m.somePageIsVisible)
                         ])
                 ])            
              

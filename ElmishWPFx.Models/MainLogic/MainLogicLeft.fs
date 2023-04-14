@@ -63,21 +63,22 @@ module MainLogicLeft =
             Directory.GetDirectories(path) 
             |> Option.ofObj
             |> optionToGenerics "adresářů" "Directory.GetDirectories()"
-            |> Array.Parallel.choose(fun item ->
+            |> Array.Parallel.choose (fun item ->
                                                 match item with
                                                 | item when condition item -> Some(item)
                                                 | _                        -> None
-                                    ) 
+                                     ) 
     
-        let dirNoFullPath = subdirs
-                            |> Array.Parallel.map(fun item -> item.Replace(path, String.Empty))   
+        let dirNoFullPath = 
+            subdirs |> Array.Parallel.map (fun item -> item.Replace(path, String.Empty))   
 
-        let numberOfFiles = subdirs 
-                            |> Array.Parallel.map(fun item ->
-                                                            let arr = Directory.GetFiles(item) 
-                                                                      |> Option.ofObj 
-                                                                      |> optionToGenerics "souborů" "Directory.GetFiles()"
-                                                            string <| arr.Length)        
+        let numberOfFiles = 
+            subdirs |> Array.Parallel.map (fun item ->
+                                                      let arr = Directory.GetFiles(item) 
+                                                                |> Option.ofObj 
+                                                                |> optionToGenerics "souborů" "Directory.GetFiles()"
+                                                      string <| arr.Length
+                                          )        
     
         dirNoFullPath |> List.ofArray, numberOfFiles |> List.ofArray //tady tasks nemely vliv na rychlost
 
@@ -88,15 +89,15 @@ module MainLogicLeft =
             tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor1
 
         match results with 
-        | [], ex   -> (0, 0), ex
+        | [], ex     -> (0, 0), ex
         | _          -> 
-                      let deserialize = deserializeMe()
-                      let prefix = deserialize.prefix   
-                      let x = fst results |> List.head 
-                      let y = fst results |> List.item ((fst results |> List.length) - 1) 
-                      let low  = Parsing.parseMe <| x.Replace(prefix, String.Empty)  
-                      let high = Parsing.parseMe <| y.Replace(prefix, String.Empty)
-                      (low, high), String.Empty  
+                        let deserialize = deserializeMe()
+                        let prefix = deserialize.prefix   
+                        let x = fst results |> List.head 
+                        let y = fst results |> List.item ((fst results |> List.length) - 1) 
+                        let low  = Parsing.parseMe <| x.Replace(prefix, String.Empty)  
+                        let high = Parsing.parseMe <| y.Replace(prefix, String.Empty)
+                        (low, high), String.Empty  
 
     let private getFullInterval() = 
       
@@ -127,8 +128,8 @@ module MainLogicLeft =
             |> Array.Parallel.mapi
                   (fun i item ->                                           
                                 let condition = myPartialInterval |> List.contains item
-                                let index = myPartialInterval 
-                                            |> List.tryFindIndex (fun item -> condition = true && item = (myFullInterval |> Array.item i))                      
+                                let index = 
+                                    myPartialInterval |> List.tryFindIndex (fun item -> condition = true && item = (myFullInterval |> Array.item i))                      
                                 match index with   
                                 | Some value -> partialNumberOfFiles |> List.item value                                                                         
                                 | None       -> String.Empty //neni treba error, oznameni sprintf "Složka %s momentálně nemá ..." plne postacuje
@@ -174,8 +175,8 @@ module MainLogicLeft =
                        <| processEnd 
                        <| "Co jsem zjistil....\n" 
                        <| (String.concat <| String.Empty <| fst results) //parametry : rozdelovac, array nebo list nebo seq obsahujici lines pro spojeni
-            | value -> let x = (value |> error2).errMsg2
-                       x       
+            | value -> (value |> error2).errMsg2
+                              
         textBoxString x         
 
     let textBoxString2() = 

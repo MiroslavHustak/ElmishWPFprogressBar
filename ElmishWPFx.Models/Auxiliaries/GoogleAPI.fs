@@ -18,15 +18,17 @@ module GoogleAPI =
 
     let writeIntoGoogleSheet getFullInterval getFullNumberOfFiles jsonFileName1 id sheetName columnStart rowStart = 
     
-        let header = [|
-                       "Pracovní značení"
-                       "Počet skenů"
-                     |]
+        let header = 
+            [|
+                "Pracovní značení"
+                "Počet skenů"
+            |]
     
-        let rows =   [| 
-                       getFullInterval() 
-                       getFullNumberOfFiles() 
-                     |]
+        let rows =   
+            [| 
+                getFullInterval() 
+                getFullNumberOfFiles() 
+            |]
 
         do checkForNetConn() 
 
