@@ -65,7 +65,7 @@ module MainLogicLeft =
             |> optionToGenerics "adresářů" "Directory.GetDirectories()"
             |> Array.Parallel.choose (fun item ->
                                                 match item with
-                                                | item when condition item -> Some(item)
+                                                | item when condition item -> Some item
                                                 | _                        -> None
                                      ) 
     
