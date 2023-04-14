@@ -129,11 +129,11 @@ module LeftCalc =
     //cmdIf disables the relevant button, cmd does not
     let bindings(): Binding<Model,Msg> list =
         [
-          "MainTextBoxText"      |> Binding.oneWay (fun m -> m.MainTextBoxText)
-          "NumberOfImagesButton" |> Binding.cmd NumberOfImagesButtonEvent  
-          "GoogleButton"         |> Binding.cmd msgGoogleButtonEvent    //Only for ProgressBar Indeterminate (left)  
-          "ProgressLeftIndeter"  |> Binding.oneWay (fun m -> m.ProgressIndeterminateLeft)           
-          "ProgressLeftBackg"    |> Binding.oneWay (fun m -> m.ProgressBackgroundLeft) 
-          "ProgressLeft"         |> Binding.oneWay (fun m -> match m.ProgressIndicatorLeft with Idle -> 0.0 | InProgress v -> float v)
-          "TestButtonLeft"       |> Binding.cmdIf (TestButtonLeftEvent, fun m -> match m.ProgressIndicatorLeft with Idle -> true | _ -> false)    //test case
+            "MainTextBoxText"      |> Binding.oneWay (fun m -> m.MainTextBoxText)
+            "NumberOfImagesButton" |> Binding.cmd NumberOfImagesButtonEvent  
+            "GoogleButton"         |> Binding.cmd msgGoogleButtonEvent    //Only for ProgressBar Indeterminate (left)  
+            "ProgressLeftIndeter"  |> Binding.oneWay (fun m -> m.ProgressIndeterminateLeft)           
+            "ProgressLeftBackg"    |> Binding.oneWay (fun m -> m.ProgressBackgroundLeft) 
+            "ProgressLeft"         |> Binding.oneWay (fun m -> match m.ProgressIndicatorLeft with Idle -> 0.0 | InProgress v -> float v)
+            "TestButtonLeft"       |> Binding.cmdIf (TestButtonLeftEvent, fun m -> match m.ProgressIndicatorLeft with Idle -> true | _ -> false)    //test case
         ]

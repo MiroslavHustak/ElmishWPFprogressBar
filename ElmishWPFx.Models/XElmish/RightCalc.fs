@@ -129,13 +129,13 @@ module RightCalc =
     //cmdIf disables the relevant button, cmd does not
     let bindings(): Binding<Model,Msg> list =
         [
-          "MainTextBoxText"      |> Binding.oneWay(fun m -> m.MainTextBoxText)
-          "SynologyButton"       |> Binding.cmd msgSynologyButtonEvent  //Only for ProgressBar Indeterminate (right) 
-          "LowLimit"             |> Binding.twoWay((fun m -> m.LowLimit), (fun newVal -> newVal |> LowLimitChanged))
-          "HighLimit"            |> Binding.twoWay((fun m -> m.HighLimit), (fun newVal -> newVal |> HighLimitChanged))
-          "PathToSynology"       |> Binding.twoWay((fun m -> m.PathToSynology), (fun newVal -> newVal |> PathToSynologyChanged))
-          "ProgressRightIndeter" |> Binding.oneWay(fun m -> m.ProgressIndeterminateRight)  
-          "ProgressRightBackg"   |> Binding.oneWay(fun m -> m.ProgressBackgroundRight) 
-          "ProgressRight"        |> Binding.oneWay(fun m -> match m.ProgressIndicatorRight with Idle -> 0.0 | InProgress v -> float v)
-          "TestButtonRight"      |> Binding.cmdIf(TestButtonRightEvent, fun m -> match m.ProgressIndicatorRight with Idle -> true | _ -> false)  //test case + real-life case
+            "MainTextBoxText"      |> Binding.oneWay(fun m -> m.MainTextBoxText)
+            "SynologyButton"       |> Binding.cmd msgSynologyButtonEvent  //Only for ProgressBar Indeterminate (right) 
+            "LowLimit"             |> Binding.twoWay((fun m -> m.LowLimit), (fun newVal -> newVal |> LowLimitChanged))
+            "HighLimit"            |> Binding.twoWay((fun m -> m.HighLimit), (fun newVal -> newVal |> HighLimitChanged))
+            "PathToSynology"       |> Binding.twoWay((fun m -> m.PathToSynology), (fun newVal -> newVal |> PathToSynologyChanged))
+            "ProgressRightIndeter" |> Binding.oneWay(fun m -> m.ProgressIndeterminateRight)  
+            "ProgressRightBackg"   |> Binding.oneWay(fun m -> m.ProgressBackgroundRight) 
+            "ProgressRight"        |> Binding.oneWay(fun m -> match m.ProgressIndicatorRight with Idle -> 0.0 | InProgress v -> float v)
+            "TestButtonRight"      |> Binding.cmdIf(TestButtonRightEvent, fun m -> match m.ProgressIndicatorRight with Idle -> true | _ -> false)  //test case + real-life case
         ]
