@@ -35,9 +35,7 @@ module MainLogicRight =
     //***************************** auxiliary function definitions ***********************************
     let private stringChoice x y = MyString.getString((x - String.length (string y)), "0")
 
-    let private (++) a b c = a + b + c
     let private (&&&&) a b c d e  = a && b && c && d && e 
-    //let inline (+=) a b = a := !a + b
 
     let private myTasks task1 task2 =           
         [ 
@@ -105,37 +103,14 @@ module MainLogicRight =
                 <| result     
 
             match rowStart with
-            | 0 -> List.empty, List.empty //neni treba specialni error, zachyti se to u sprintf "Chyba:\nPočet složek v Google %s...... - viz nize   
+            | 0 -> [], [] //neni treba specialni error, zachyti se to u sprintf "Chyba:\nPočet složek v Google %s...... - viz nize   
             | _ -> let result = myTasks  
                                 <| async { return numOfScans() |> List.ofArray } 
                                 <| async { return folderNum () |> List.ofArray }                   
                    result |> List.head, result |> List.last 
     
         // second submain function
-        (*
-        let myList() =  
-            let i = ref 0
-            Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
-            |> Option.ofObj
-            |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()" //sort je quli sitove pripojenemu zarizeni          
-            |> Array.collect
-                    (fun item ->
-                                i += 1 //mutable counter
-                                reportProgress (!i * 5)  
-                                let arr = 
-                                    let p = [ prefix; "*" ] |> List.fold (+) String.Empty //i na string to funguje :-)
-                                    Directory.EnumerateDirectories(item, p) 
-                                    |> Option.ofObj
-                                    |> optionToArraySort "adresářů" "Directory.EnumerateDirectories()"
-                                    |> Array.Parallel.map (fun item -> 
-                                                                     let arr = Directory.EnumerateFiles(item, "*.jpg", SearchOption.TopDirectoryOnly)
-                                                                               |> Option.ofObj   
-                                                                               |> optionToArraySort "souborů" "Directory.EnumerateFiles()"   
-                                                                     arr.Length
-                                                          ) 
-                                arr                    
-                    ) |> List.ofArray      
-        *) 
+        
         let myList1() =  //redundant function - just testing an option without a mutable counter
             let myArray = 
                 Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
@@ -200,7 +175,7 @@ module MainLogicRight =
                     | TupleStringString(numOfScans, folderNum) -> numOfScans, folderNum                                                    
                     | _                                        -> 
                                                                   error4 "error4 - TupleStringString"
-                                                                  List.empty, List.empty         
+                                                                  [], []        
    
             let myList = 
                 du |> List.last |> whatIs  
@@ -208,7 +183,7 @@ module MainLogicRight =
                     | MyListInt value -> value                                           
                     | _               -> 
                                          error4 "error4 - MyListInt"
-                                         List.empty 
+                                         [] 
 
             let processEnd = String.Empty //$"  Konec procesu: {DateTime.Now.ToString(str)}" //String.Empty //
         
@@ -216,8 +191,9 @@ module MainLogicRight =
                             <| (=)  myList.Length folderNum.Length 
                             <| (=)  myList.Length numOfScans.Length 
                             <| (=)  folderNum.Length numOfScans.Length 
-                            <| (<>) numOfScans List.empty 
-                            <| (<>) folderNum List.empty
+                            <| (<>) numOfScans [] 
+                            <| (<>) folderNum []
+                                      
 
             match condition with
             | true  -> 
@@ -269,7 +245,7 @@ module MainLogicRight =
                                <| "Google"
                                <| "Synology"
                  
-                     (++) 
+                     sprintf "%s%s%s"
                      <| str
                      <| "\n"
                      <| (String.concat <| String.Empty <| msg)                             

@@ -35,10 +35,7 @@ module MainLogicLeft =
         let perform x = deserialize "json.xml" 
         tryWith perform (fun x -> ()) (fun ex -> ()) |> deconstructor3 Common_Settings.Default 
                
-    let private str = "HH:mm:ss.fff" 
-
-    let private (++) a b c = a + b + c
-    let private (+++) _ = (++) 
+    let private str = "HH:mm:ss.fff"  
 
     let private getDirsAndFiles() =
 
@@ -170,7 +167,7 @@ module MainLogicLeft =
             let processEnd = String.Empty //$"Konec procesu: {DateTime.Now.ToString(str)}\n" //String.Empty //
         
             match snd results with
-            | ""    -> (+++) 
+            | ""    -> sprintf "%s%s%s%s" 
                        <| processStart
                        <| processEnd 
                        <| "Co jsem zjistil....\n" 
@@ -191,7 +188,7 @@ module MainLogicLeft =
                 partialFn1 <| deserialize.jsonFileName1 <| deserialize.id <| deserialize.sheetName <| deserialize.columnStart <| deserialize.rowStart 
             partialFn2()                     
         
-            (++)        
+            sprintf "%s%s%s"           
             <| processStart
             <| processEnd
             <| "Údaje byly úspěšně zapsány. Ještě před kontrolou skenů je zkopíruj do příslušného sloupce v barevné tabulce."
