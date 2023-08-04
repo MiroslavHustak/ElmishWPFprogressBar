@@ -3,6 +3,7 @@
 open Microsoft.FSharp.Core
 open System.Windows
 open System.Windows.Controls.Primitives
+open Errors
 
 module XElmishSettings =
     
@@ -290,26 +291,37 @@ module XElmishSettings =
         //SaveValuesEvent   // v tomto pripade paramToTextBoxChanged by pak robilo to same, jako "TextBoxChanged" |> Binding.cmd SaveValuesEvent   
     
     //*********************** cmdParam ********************************** v teto app pouzivana cast
-    let castAs<'T when 'T: null> (o: obj) = 
-        match o with
-        | :? 'T as res -> res
-        | _            -> null      
-    
-    let paramTextBoxClickedEvent (p: obj) =    
-        
-        let e = castAs<MouseButtonEventArgs>(p) 
-        let sender = e.Source
-        let textBox = castAs<TextBox>(sender) 
-         
-        let e =             
-            match textBox.IsKeyboardFocusWithin with 
-            | true  -> ()
-            | false -> 
-                      textBox.SelectAll()     
-                      e.Handled <- true
-                      textBox.Focus() |> ignore
-        e  
-        TextBoxClickedEvent
+          
+    let castAs<'T> (o: obj) : 'T option =
+
+        match Option.ofObj o with
+        | Some (:? 'T as res) -> Some res
+        | _                   -> None
+
+    let paramTextBoxClickedEvent (p: obj) =   
+
+           let e = 
+               match castAs<MouseButtonEventArgs>(p) with
+               | Some value -> value
+               | None       -> error4 "Failed castAs<MouseButtonEventArgs>" 
+                               failwith String.Empty //just something...
+          
+           let sender = e.Source
+           let textBox = 
+               match castAs<TextBox>(sender) with
+               | Some value -> value
+               | None       -> error4 "Failed castAs<TextBox>(sender)" 
+                               failwith String.Empty //just something...
+            
+           let e =             
+               match textBox.IsKeyboardFocusWithin with 
+               | true  -> ()
+               | false -> 
+                          textBox.SelectAll()     
+                          e.Handled <- true
+                          textBox.Focus() |> ignore
+           e  
+           TextBoxClickedEvent
       
     // A command in Elmish is a function that can trigger events into the dispatch loop. // A command is essentially a function that takes a dispatch function as input and returns unit:
     let update (msg: Msg) (m: Model) : Model * Cmd<Msg> = 
@@ -353,6 +365,8 @@ module XElmishSettings =
     let condition x y = (cond x y) |> condInt y 
 
     let bindings(): Binding<Model,Msg> list =
+                 
+
         [ 
             "CancelButton2"           |> Binding.cmd CancelButton2Event  
             // "CheckBoxChanged"      |> Binding.cmd SaveValuesEvent   
