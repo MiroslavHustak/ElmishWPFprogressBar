@@ -1,8 +1,10 @@
 ﻿namespace ElmishWPFx.Models
 
-open Microsoft.FSharp.Core
 open System.Windows
 open System.Windows.Controls.Primitives
+
+open Microsoft.FSharp.Core
+
 open Errors
 
 module XElmishSettings =
@@ -365,8 +367,6 @@ module XElmishSettings =
     let condition x y = (cond x y) |> condInt y 
 
     let bindings(): Binding<Model,Msg> list =
-                 
-
         [ 
             "CancelButton2"           |> Binding.cmd CancelButton2Event  
             // "CheckBoxChanged"      |> Binding.cmd SaveValuesEvent   
