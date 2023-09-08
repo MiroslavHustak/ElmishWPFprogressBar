@@ -184,7 +184,7 @@ module XElmishSettings =
                    path = cond m.PathTextBoxText Common_Settings.Default.path 
                    numOfScansLength = condInt m.NumOfScansLengthTextBoxText Common_Settings.Default.numOfScansLength 
        
-                   firstRowIsHeaders = unbox m.FirstRowIsHeadersCheckBoxIsChecked
+                   firstRowIsHeaders = m.FirstRowIsHeadersCheckBoxIsChecked
                    jsonFileName1 = cond m.JsonFileName1TextBoxText Common_Settings.Default.jsonFileName1 
                    jsonFileName2 = cond m.JsonFileName2TextBoxText Common_Settings.Default.jsonFileName2
                    id = cond m.IdTextBoxText Common_Settings.Default.id
@@ -204,7 +204,7 @@ module XElmishSettings =
                    PathTextBoxText = cond m.PathTextBoxText Common_Settings.Default.path 
                    NumOfScansLengthTextBoxText = string (condInt m.NumOfScansLengthTextBoxText Common_Settings.Default.numOfScansLength)
                    
-                   FirstRowIsHeadersCheckBoxIsChecked = unbox m.FirstRowIsHeadersCheckBoxIsChecked
+                   FirstRowIsHeadersCheckBoxIsChecked = m.FirstRowIsHeadersCheckBoxIsChecked
                    JsonFileName1TextBoxText = cond m.JsonFileName1TextBoxText Common_Settings.Default.jsonFileName1 
                    JsonFileName2TextBoxText = cond m.JsonFileName2TextBoxText Common_Settings.Default.jsonFileName2
                    IdTextBoxText = cond m.IdTextBoxText Common_Settings.Default.id
@@ -293,24 +293,18 @@ module XElmishSettings =
         //SaveValuesEvent   // v tomto pripade paramToTextBoxChanged by pak robilo to same, jako "TextBoxChanged" |> Binding.cmd SaveValuesEvent   
     
     //*********************** cmdParam ********************************** v teto app pouzivana cast
-          
-    let castAs<'T> (o: obj) : 'T option =
-
-        match Option.ofObj o with
-        | Some (:? 'T as res) -> Some res
-        | _                   -> None
-
+         
     let paramTextBoxClickedEvent (p: obj) =   
 
            let e = 
-               match castAs<MouseButtonEventArgs>(p) with
+               match Casting.castAs<MouseButtonEventArgs>(p) with
                | Some value -> value
                | None       -> error4 "Failed castAs<MouseButtonEventArgs>" 
                                failwith String.Empty //just something...
           
            let sender = e.Source
            let textBox = 
-               match castAs<TextBox>(sender) with
+               match Casting.castAs<TextBox>(sender) with
                | Some value -> value
                | None       -> error4 "Failed castAs<TextBox>(sender)" 
                                failwith String.Empty //just something...
@@ -454,7 +448,7 @@ type SettingsWindow() as this =
                 path = cond (string this.pathTextBox.Text) Common_Settings.Default.path 
                 numOfScansLength = condInt (string (this.numOfScansLengthTextBox.Text)) Common_Settings.Default.numOfScansLength 
 
-                firstRowIsHeaders = unbox (this.firstRowIsHeadersCheckBox.IsChecked)
+                firstRowIsHeaders = (this.firstRowIsHeadersCheckBox.IsChecked)
                 jsonFileName1 = cond (string this.jsonFileName1TextBox.Text) Common_Settings.Default.jsonFileName1 
                 jsonFileName2 = cond (string this.jsonFileName2TextBox.Text) Common_Settings.Default.jsonFileName2
                 id = cond (string this.idTextBox.Text) Common_Settings.Default.id

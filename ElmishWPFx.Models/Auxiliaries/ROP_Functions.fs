@@ -51,7 +51,12 @@ module ROP_Functions =
                         error4 str //ukonci program
                         new DirectoryInfo(String.Empty) //whatever of DirectoryInfo type
                                       
-                    
+module Casting = 
+    
+    let castAs<'a> (o: obj) : 'a option =    //the :? operator in F# is used for type testing     
+        match Option.ofObj o with
+        | Some (:? 'a as result) -> Some result
+        | _                      -> None
 
 
 
